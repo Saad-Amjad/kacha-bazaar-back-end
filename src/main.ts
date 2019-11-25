@@ -1,5 +1,5 @@
 import express from 'express';
-import { dialogflow } from 'actions-on-google';
+import { dialogflow, Image, BasicCard, Button } from 'actions-on-google';
 import bodyParser from 'body-parser';
 import admin from 'firebase-admin';
 
@@ -41,6 +41,22 @@ app.intent('actions.intent.STORE_ITEM_PRICE', (conv, { items, number }) => {
     const termRef = collectionRef.doc(`${term}`);
     return termRef.set(data, { merge: true }).then(() => {
         conv.ask(`The price of ${items} is stored for ${number} per kg`);
+        if (items == 'onion') {
+            conv.ask(new BasicCard({
+                text: `${items}`,
+                subtitle: 'This seems your favorite today.',
+                buttons: new Button({
+                    title: 'Visit Kacha Bazaar App',
+                    url: 'https://assistant.google.com/',
+                }),
+                image: new Image({
+                    url: 'https://images.unsplash.com/photo-1507633698035-8e4bd1573e09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
+                    alt: '',
+                }),
+                display: 'CROPPED',
+            }));
+        };
+        conv.ask('What can do for you now?');
     }).catch((e) => {
         conv.ask('Sorry I could not save the price.');
     });
