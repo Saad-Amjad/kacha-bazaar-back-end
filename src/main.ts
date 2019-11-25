@@ -47,7 +47,7 @@ app.intent('actions.intent.STORE_ITEM_PRICE', (conv, { items, number }) => {
                 subtitle: 'This seems your favorite today.',
                 buttons: new Button({
                     title: 'Visit Kacha Bazaar App',
-                    url: 'https://assistant.google.com/',
+                    url: 'https://bazaar-55fab.web.app/',
                 }),
                 image: new Image({
                     url: 'https://images.unsplash.com/photo-1507633698035-8e4bd1573e09?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1567&q=80',
@@ -57,8 +57,8 @@ app.intent('actions.intent.STORE_ITEM_PRICE', (conv, { items, number }) => {
             }));
         };
         conv.ask('What can do for you now?');
-    }).catch((e) => {
-        conv.ask('Sorry I could not save the price.');
+        }).catch((e) => {
+    conv.ask('Sorry I could not save the price.');
     });
 })
 
